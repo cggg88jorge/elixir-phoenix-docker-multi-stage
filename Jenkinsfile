@@ -22,14 +22,14 @@ pipeline{
       }
     }
 
-    stage('PROD ENVIRONMENT: Transfering sh'){
+    stage('Deploy app in host docker'){
       when {
         expression {
           env.BRANCH_NAME in ["master"]
         }
       }
       steps{
-        sh "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t cggg88jorge@192.168.100.2 'docker run -d localhost:5000/cggg88jorge/elixir-app'"
+        sh "echo 'docker run -p 4000:4000 -d --name elixirapp elixirapp' | ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t cggg88jorge@192.168.100.2"
       }
     }
   }
